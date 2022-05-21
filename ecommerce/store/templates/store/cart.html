@@ -1,0 +1,63 @@
+{% extends 'store/main.html' %} {% load static %} {% block content%}
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="box-element">
+      <a class="btn btn-outline-dark" href="{% url 'store'%}"
+        >&#x2190;Continue Shopping</a
+      >
+      <br />
+      <br />
+
+      <table class="table">
+        <tr>
+          <th>
+            <h5>Items: <strong>{{order.get_cart_items}}</strong></h5>
+          </th>
+          <th>
+            <h5>Total: <strong>${{order.get_cart_total|floatformat:2}}</strong></h5>
+          </th>
+          <th>
+            <a
+              class="btn btn-success"
+              style="float: right; margin: 5px"
+              href="{% url 'checkout' %}"
+              >Check out</a
+            >
+          </th>
+        </tr>
+      </table>
+    </div>
+    <br />
+    <div class="box-element">
+      <div class="cart-row">
+        <div style="flex: 2"></div>
+        <div style="flex: 2"><strong> Item</strong></div>
+        <div style="flex: 1">
+          <strong> Price</strong></div>
+          <div style="flex: 1"><strong> Quantity</strong></div>
+          <div style="flex: 1"><strong> Total</strong></div>
+        </div>
+        {% for item in items %}
+        <div class="cart-row">
+            <div style="flex: 2"><img class="row-image" src="{{item.product.imageURL}}" alt=""></div>
+            <div style="flex: 2">{{item.product.name}}</div>
+            <div style="flex: 1">
+              <strong>${{item.product.price|floatformat:2}}</strong></div>
+              <div style="flex: 1">
+                <p class="quantity">{{item.quantity}}</p>
+                <div class="quantity">
+                  <svg data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                  <svg data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path></svg>
+                  
+                 
+                </div>
+            </div>
+              <div style="flex: 1"><strong> ${{item.get_total}} </strong></div>
+            </div>
+            {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock content%}
+</div>
